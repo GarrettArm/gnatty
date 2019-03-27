@@ -1,4 +1,4 @@
-# Install docker
+Install docker
 
   - linux:
 
@@ -15,6 +15,18 @@
     - sudo curl -L https://github.com/docker/compose/releases/download/1.23.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose 
         {replace with latest version}
     - sudo chmod +x /usr/local/bin/docker-compose
+
+
+  - windows 10:
+
+    - to be added
+
+  - osX:
+
+    - to be added
+
+
+
 
 
 Note:  On first `docker-compose up`, the MySQL container will need a few seconds to prepare.  Until the database is built, it will give bad responses.  Wait a few seconds on first build.
