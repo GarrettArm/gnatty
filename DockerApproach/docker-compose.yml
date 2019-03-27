@@ -13,11 +13,12 @@ networks:
 services:
   nginx:
     image: nginx 
-    container_name: Nginx
+    container_name: nginx
     ports:
       - "8088:80"
     volumes:
       - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - site_root:/var/www/html/
     networks:
       - httpd_network
     depends_on:
@@ -26,7 +27,7 @@ services:
 
   httpd:
     image: httpd
-    container_name: Apache
+    container_name: httpd
     volumes:
       - ./config/apache/drupal.conf:/usr/local/apache2/conf/drupal.conf
     ports:
@@ -39,7 +40,7 @@ services:
 
   webapp-fpm:
     image: drupal:8.6.13-fpm
-    container_name: Drupal-fpm
+    container_name: webapp-fpm
     ports:
       - 9999:80
     volumes:
@@ -53,7 +54,7 @@ services:
 
   webapp-apache:
     image: drupal:8.6.13-apache
-    container_name: Drupal-Apache
+    container_name: webapp-apache
     ports:
       - 9000:80
     volumes:
@@ -67,7 +68,7 @@ services:
 
   db:
     image: mysql:latest
-    container_name: MySQL
+    container_name: db
     command: --default-authentication-plugin=mysql_native_password
     env_file: .env
     networks:
