@@ -1,4 +1,4 @@
-Install docker
+Install docker-compose version 1.22 or greater
 
   - linux:
 
@@ -38,24 +38,40 @@ drupal runs at localhost:8080
 Some Commands:
 
 docker
+
     ps    {show containers}
+
         -a      {including stopped ones}
+
     network     
+
         ls      {list}
+
         prune   {remove inactive ones}
+
     volume
+
         ls      {list}
+
         prune   {remove inactive ones}
+
                 - this will destroy the container's persistent data
+
     run
+
         -it     {with interactive teletype, i.e. command line}
+
     inspect     {see all details about a container}
 
 
 docker-compose
-    up      {start the containers}
-        -d  {in detached mode}
-    down    {kill & remove the containers}
-    run container_name "/bin/bash"
-    logs container_name     {show logs}
 
+    up      {start the containers}
+
+        -d  {in detached mode}
+
+    down    {kill & remove the containers}
+
+    run container_name "/bin/bash"
+
+    logs container_name     {show logs}
