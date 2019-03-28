@@ -11,12 +11,11 @@ networks:
     driver: bridge
 
 services:
-
- nginx:
+  nginx:
     image: nginx:1.15.10
     container_name: nginx
     ports:
-      - "8088:80"
+      - 8088:80
     volumes:
       - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf
       - site_root:/var/www/html/
