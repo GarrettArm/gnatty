@@ -39,3 +39,5 @@ xmlrpc.php
 /themes
 
 *.swp
+db_host/
+code/

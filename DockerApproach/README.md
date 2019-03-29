@@ -37,6 +37,22 @@ drupal runs at localhost:8080
 
 Some Commands:
 
+ Starting a box -- least invasive to most invasive
+
+docker-compose up --build -d
+ 
+  - builds the docker-compose.yml file in this directory (d = detached)
+
+
+
+
+docker-compose build --no-cache
+
+  - hard rebuild without cached version of build files (your updates aren't sticking for some reason, do this)
+
+docker-compose down && docker volume prune && docker system prune && docker-compose build --no-cache && docker-compose up
+
+
 docker
 
     ps    {show containers}
