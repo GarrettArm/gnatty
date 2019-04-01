@@ -16,42 +16,43 @@ Install docker-compose version 1.22 or greater
         {replace with latest version}
     - sudo chmod +x /usr/local/bin/docker-compose
 
-
   - windows 10:
 
-    - to be added
+    - install github app from desktop.github.com
+    - clone this repo from github.com/lsulibraries/Drupal8Scaffoldings
+    - install docker app from https://docs.docker.com/docker-for-windows/install/   
+        - you may need to create a free docker account
+        - Hyper-V and Containers must be enabled in your Windows install.  Docker will attempt to enable them.
+    - open powershell
+        - try 'docker -v' and 'docker-compose -v' to see the installed versions
+        - try 'docker run hello-world' (this will pull an image from the repo & run it)
+        - go to docker toolbar icon, right-click, 'Settings'. in Settings panel, do 'Shared Drive', enable 'C' drive sharing.
 
   - osX:
 
     - to be added
 
-
-
+  - after installing docker:
+    - navigate in a shell to the folder with your docker-composer, then 'docker-compose up'
 
 
 Note:  On first `docker-compose up`, the MySQL container will need a few seconds to prepare.  Until the database is built, it will give bad responses.  Wait a few seconds on first build.
 
-phpMyAdmin runs at localhost:8888
-apache runs at localhost:1337
-drupal runs at localhost:8080
+see Drupal at localhost:5000
 
 Some Commands:
 
  Starting a box -- least invasive to most invasive
 
-docker-compose up --build -d
+docker-compose up -d
  
-  - builds the docker-compose.yml file in this directory (d = detached)
-
-
-
+  - builds, using the docker-compose.yml file in this directory (d = detached)
 
 docker-compose build --no-cache
 
-  - hard rebuild without cached version of build files (your updates aren't sticking for some reason, do this)
+  - hard rebuilds the individual containers without cached version of build files (if your updates aren't sticking for some reason, do this)
 
 docker-compose down && docker volume prune && docker system prune && docker-compose build --no-cache && docker-compose up
-
 
 docker
 
@@ -88,6 +89,6 @@ docker-compose
 
     down    {kill & remove the containers}
 
-    run container_name "/bin/bash"
+    exec container_name /bin/bash {or other program from inside the container}
 
     logs container_name     {show logs}
