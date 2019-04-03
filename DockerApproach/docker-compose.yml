@@ -21,8 +21,9 @@ services:
     ports:
       - 5000:80
     volumes:
+      - site_root:/var/www:ro
       - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./DrupalCode/app:/var/www/html:ro
+      # - ./drupal_app:/var/www/html:ro
     networks:
       - httpd_network
     depends_on:
@@ -33,8 +34,10 @@ services:
     container_name: webapp
     env_file: .env
     volumes:
-      - ./DrupalCode/app:/var/www/html
-      - ./DrupalCode/config/drupal/settings.php:/tmp/settings.php
+      - site_root:/var/www
+      # - ./drupal_app:/var/www/html
+      # - ./DrupalCode/config/drupal/settings.php:/tmp/settings.php
+
     restart: always
     networks:
       - db_network
@@ -50,25 +53,24 @@ services:
       - db_network
     volumes:
       - db_data:/var/lib/mysql
-      - ./db_host:/var/lib/mysql
     restart: always
 
-  # phpmyadmin:
-  #   image: phpmyadmin/phpmyadmin:4.7
-  #   container_name: phpmyadmin
-  #   env_file: .env
-  #   environment:
-  #     PMA_HOST: ${MYSQL_HOST}
-  #     PMA_USER: ${MYSQL_USER}
-  #     PMA_PASSWORD: ${MYSQL_PASSWORD}
-  #     PMA_ARBITRARY: 0
-  #     PMA_PORT: 3306
-  #   restart: always
-  #   ports:
-  #     - 8888:80
-  #   networks:
-  #     - db_network
-  #   volumes:
-  #     - /sessions
-  #   depends_on:
-  #     - db
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:4.7
+    container_name: phpmyadmin
+    env_file: .env
+    environment:
+      PMA_HOST: ${MYSQL_HOST}
+      PMA_USER: ${MYSQL_USER}
+      PMA_PASSWORD: ${MYSQL_PASSWORD}
+      PMA_ARBITRARY: 0
+      PMA_PORT: 3306
+    restart: always
+    ports:
+      - 8888:80
+    networks:
+      - db_network
+    volumes:
+      - /sessions
+    depends_on:
+      - db

@@ -1,0 +1,26 @@
+from inside webapp box:
+{ get there using `docker-compose exec webapp /bin/bash` }
+
+cd /tmp
+apt update
+apt install wget git curl -y
+
+rm -R /var/www/html
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
+	php composer-setup.php && \
+	mv composer.phar /usr/bin/composer && \
+	php -r "unlink('composer-setup.php');"
+wget -O drush.phar https://github.com/drush-ops/drush-launcher/releases/download/0.4.2/drush.phar && \
+	chmod +x drush.phar && \
+	mv drush.phar /usr/bin/drush
+composer create-project drupal-composer/drupal-project:8.x-dev /var/www/html/ --stability dev --no-interaction
+
+mkdir -p /var/www/html/config/sync
+# chown -R www-data:www-data /var/www/html/web
+
+##### - manually configure site at localhost:5000, then
+
+cd /var/www/html/web
+drush config-export
+
+##### - see new config files in host:DrupalCode/config/sync
