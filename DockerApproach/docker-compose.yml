@@ -34,6 +34,7 @@ services:
     env_file: .env
     volumes:
       - ./DrupalCode/app:/var/www/html
+      - ./DrupalCode/config/drupal/settings.php:/tmp/settings.php
     restart: always
     networks:
       - db_network
