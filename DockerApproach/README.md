@@ -38,9 +38,6 @@ sudo chmod +x /usr/local/bin/docker-compose
 
     - to be added
 
-  - after installing docker:
-    - navigate in a shell to the folder with your docker-composer, then 'docker-compose up'
-
 # run the containers
 
 ```
