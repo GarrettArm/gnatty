@@ -80,7 +80,8 @@ composer create-project drupal-composer/drupal-project:8.x-dev /var/www/html/ --
 fix permissions:
 
 ```
-chown -R www-data:www-data /var/www/html/config/sync
+mkdir -p /var/www/sync
+chown -R www-data:www-data /var/www/sync
 chown -R www-data:www-data /var/www/html/web
 ```
 
