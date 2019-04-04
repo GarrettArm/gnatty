@@ -1,4 +1,4 @@
-Install docker-compose version 1.22 or greater
+# Install docker-compose version 1.22 or greater
 
   - linux:
 
@@ -13,9 +13,9 @@ sudo apt update
 sudo apt install docker-ce -y
 sudo usermod -aG docker $USER
 ```
-
-    Log out your computer & log back in.
-
+```
+Log out your computer & log back in.
+```
 ```
 docker run hello-world
 sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -41,12 +41,61 @@ sudo chmod +x /usr/local/bin/docker-compose
   - after installing docker:
     - navigate in a shell to the folder with your docker-composer, then 'docker-compose up'
 
+# run the containers
 
-Note:  On first `docker-compose up`, the MySQL container will need a few seconds to prepare.  Until the database is built, it will give bad responses.  Wait a few seconds on first build.
+```
+cd DockerApproach
+./wipe-rebuild
+```
 
-see Drupal at localhost:5000
+Note:  On each `./wipe_rebuild`, the MySQL container will need a few seconds to prepare.  You'll see when it's ready, when localhost:8888 gives a page.  Until the database is built, the server will give bad responses.  Wait a few seconds on first build.
 
-Some Commands:
+see a "File not found" page at localhost:5000
+
+install drupal, composer, drush inside the webapp container, via:
+
+Enter the webapp container:
+
+```
+docker-compose exec webapp /bin/bash
+```
+
+Install dependencies:
+
+```
+cd /tmp 
+apt update
+apt install wget git curl -y
+```
+
+Install composer/drush/drupal:
+```
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
+    php composer-setup.php && \
+    mv composer.phar /usr/bin/composer && \
+    php -r "unlink('composer-setup.php');"
+wget -O drush.phar https://github.com/drush-ops/drush-launcher/releases/download/0.4.2/drush.phar && \
+    chmod +x drush.phar && \
+    mv drush.phar /usr/bin/drush
+composer create-project drupal-composer/drupal-project:8.x-dev /var/www/html/ --stability dev --no-interaction
+```
+
+fix permissions:
+
+```
+chown -R www-data:www-data /var/www/html/config/sync
+chown -R www-data:www-data /var/www/html/web
+```
+
+You'll now see a base install Drupal at localhost:5000.
+And you'll see the drupal code inside webapp container mirrored on your computer at ./drupal_app/
+When you do a drupal sync from webapp container, those files will be mirrored at ./drupal_sync/
+
+
+
+............................................................................
+
+Some random commands:
 
  Starting a box -- least invasive to most invasive
 
