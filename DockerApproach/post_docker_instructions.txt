@@ -15,6 +15,7 @@ wget -O drush.phar https://github.com/drush-ops/drush-launcher/releases/download
 composer create-project drupal-composer/drupal-project:8.x-dev /var/www/html/ --stability dev --no-interaction
 
 mkdir -p /var/www/html/config/sync
+chown -R www-data:www-data /var/www/html/config/sync
 chown -R www-data:www-data /var/www/html/web
 
 ##### - manually configure site at localhost:5000, then
