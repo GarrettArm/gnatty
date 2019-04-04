@@ -1,8 +1,8 @@
 docker-compose down
-echo "removing DrupalCode/app"
-sudo rm -R DrupalCode/app
-mkdir -p DrupalCode/app
-sudo chown root:root DrupalCode/app
+echo "removing drupal_app"
+sudo rm -R drupal_app
+mkdir -p drupal_app
+sudo chown root:root drupal_app
 docker ps
 docker volume prune -f
 docker network prune -f
