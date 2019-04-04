@@ -35,6 +35,7 @@ services:
     env_file: .env
     volumes:
       - ./drupal_app:/var/www/html
+      - ./drupal_sync:/var/www/html/config/sync
       # - site_root:/var/www/html
       # - ./DrupalCode/config/drupal/settings.php:/tmp/settings.php
 

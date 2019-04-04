@@ -1,9 +1,13 @@
 from inside webapp box:
-{ get there using `docker-compose exec webapp /bin/bash` }
+{ get there using `docker-compose exec webapp /bin/bash` which i verbalize as "docker-compose execute from container webapp the program '/bin/bash'."}
 
 cd /tmp 
 apt update
 apt install wget git curl -y
+
+
+
+
 
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
 	php composer-setup.php && \
@@ -14,11 +18,17 @@ wget -O drush.phar https://github.com/drush-ops/drush-launcher/releases/download
 	mv drush.phar /usr/bin/drush
 composer create-project drupal-composer/drupal-project:8.x-dev /var/www/html/ --stability dev --no-interaction
 
+
+
 mkdir -p /var/www/html/config/sync
 chown -R www-data:www-data /var/www/html/config/sync
 chown -R www-data:www-data /var/www/html/web
 
+
+
 ##### - manually configure site at localhost:5000, then
+
+
 
 cd /var/www/html/web
 drush config-export

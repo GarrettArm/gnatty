@@ -4,9 +4,9 @@ sudo rm -R drupal_app
 mkdir -p drupal_app
 sudo chown root:root drupal_app
 docker ps
-docker volume prune -f
+docker volume rm dockerapproach_site_root dockerapproach_db_data
 docker network prune -f
-docker system prune  -f
+docker system prune -f
 docker volume ls
 docker network ls
 docker ps -a
