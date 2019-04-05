@@ -769,7 +769,7 @@ $settings['entity_update_batch_size'] = 50;
 #   include $app_root . '/' . $site_path . '/settings.local.php';
 # }
 
-$config_directories[CONFIG_SYNC_DIRECTORY] = '../../sync';
+$config_directories[CONFIG_SYNC_DIRECTORY] = '/var/www/sync';
 
 $databases['default']['default'] = array (
   'database' => getenv('MYSQL_DATABASE'),
