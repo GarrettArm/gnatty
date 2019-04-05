@@ -16,19 +16,16 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
 RUN wget -O drush.phar https://github.com/drush-ops/drush-launcher/releases/download/0.4.2/drush.phar && \
     chmod +x drush.phar && \
     mv drush.phar /usr/bin/drush
-RUN tree /var/www/
 RUN rm -R /var/www
-RUN tree /var/www
-# RUN composer create-project drupal-composer/drupal-project:8.x-dev /var/www --stability dev --no-interaction
+RUN composer create-project drupal-composer/drupal-project:8.x-dev /var/www --stability dev --no-interaction
 
-# COPY ./config/drupal/settings.php /var/www/web/sites/default/settings.php
+COPY ./config/drupal/settings.php /var/www/web/sites/default/settings.php
 COPY ./config/drupal/drupal_entrypoint /usr/local/bin/
 
-# RUN mkdir -p /var/www/sync && \
-#    mkdir /app && \
-#    chown -R www-data:www-data /var/www/sync && \
-#    chown -R www-data:www-data /var/www/web/sites/default/settings.php
+RUN mkdir -p /var/www/sync && \
+   chown -R www-data:www-data /var/www/sync && \
+   chown -R www-data:www-data /var/www/web/sites/default/settings.php
 
-# WORKDIR /var/www/html
+WORKDIR /var/www/html
 
 ENTRYPOINT ["drupal_entrypoint"]

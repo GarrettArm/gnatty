@@ -23,8 +23,6 @@ services:
     volumes:
       - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf
       - ./drupal_app:/var/www/html
-      # - drupal_data:/var/www/html/web
-
     networks:
       - httpd_network
     depends_on:
@@ -39,10 +37,6 @@ services:
     volumes:
       - ./drupal_sync:/var/www/sync
       - ./drupal_app:/var/www/html
-      # - drupal_data:/var/www/html/web
-
-      # - ./config/drupal/settings.php:/tmp/settings.php
-
     restart: always
     networks:
       - db_network
@@ -61,22 +55,22 @@ services:
       - db_data:/var/lib/mysql
     restart: always
 
-  # phpmyadmin:
-  #   image: phpmyadmin/phpmyadmin:4.7
-  #   container_name: phpmyadmin
-  #   env_file: .env
-  #   environment:
-  #     PMA_HOST: ${MYSQL_HOST}
-  #     PMA_USER: ${MYSQL_USER}
-  #     PMA_PASSWORD: ${MYSQL_PASSWORD}
-  #     PMA_ARBITRARY: 0
-  #     PMA_PORT: 3306
-  #   restart: always
-  #   ports:
-  #     - "8888:80"
-  #   networks:
-  #     - db_network
-  #   volumes:
-  #     - /sessions
-  #   depends_on:
-  #     - db
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:4.7
+    container_name: phpmyadmin
+    env_file: .env
+    environment:
+      PMA_HOST: ${MYSQL_HOST}
+      PMA_USER: ${MYSQL_USER}
+      PMA_PASSWORD: ${MYSQL_PASSWORD}
+      PMA_ARBITRARY: 0
+      PMA_PORT: 3306
+    restart: always
+    ports:
+      - "8888:80"
+    networks:
+      - db_network
+    volumes:
+      - /sessions
+    depends_on:
+      - db

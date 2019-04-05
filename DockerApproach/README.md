@@ -45,7 +45,7 @@ cd DockerApproach
 docker-compose up --build
 ```
 
-Note:  On each `./wipe_rebuild`, the MySQL container will need a few seconds to prepare.  You'll see when it's ready, when localhost:8888 gives a page.  Until the database is built, the server will give bad responses.  Wait a few seconds on first build.
+Note:  On each webapp build, the MySQL container will need a few seconds to prepare.  You'll see when it's ready, when localhost:8888 gives a page.  Until the database is built, the server will give bad responses.  Wait a few seconds on first build.
 
 You'll soon see a base install Drupal at localhost:5000.
 And you'll see the drupal code inside webapp container mirrored on your computer at ./drupal_app/
@@ -66,7 +66,7 @@ You may run `docker-compose exec webapp drush config-export`
 You may wait while I learn the commands for importing configs.  ;)
 ............................................................................
 
-docker
+### some docker commands 
 
     ps    {show containers}
 
