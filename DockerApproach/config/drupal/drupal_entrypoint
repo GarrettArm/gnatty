@@ -2,12 +2,13 @@
 
 set -e
 
-# if drupal install directory does not exist, make drupal.  If it exists, don't overwrite it.
-if [ ! -d /var/www/html/web ]; then
-    echo "Making drupal from scratch"
-    cd /tmp 
+# if no drupal directory, make drupal.  Otherwise, use the drupal you got.
+if [ ! -d /drupal_app/web/sites/default ]; then
+    echo "### Making drupal from scratch ###"
+    # rm -R /var/www
     apt update
     apt install wget git curl -y
+    cd /tmp
     php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
         php composer-setup.php && \
         mv composer.phar /usr/bin/composer && \
@@ -15,12 +16,14 @@ if [ ! -d /var/www/html/web ]; then
     wget -O drush.phar https://github.com/drush-ops/drush-launcher/releases/download/0.4.2/drush.phar && \
         chmod +x drush.phar && \
         mv drush.phar /usr/bin/drush
-    composer create-project drupal-composer/drupal-project:8.x-dev /var/www/html/ --stability dev --no-interaction
-    mkdir -p /var/www/html/config/sync
-    chown -R www-data:www-data /var/www/html/config/sync
-    chown -R www-data:www-data /var/www/html/web
+    composer create-project drupal-composer/drupal-project:8.x-dev /drupal_app --stability dev --no-interaction
+    cp /tmp/drupal_settings.php /drupal_app/web/sites/default/settings.php
+    chown -R www-data:www-data /drupal_app
+    mkdir -p /drupal_sync
+    chown -R www-data:www-data /drupal_sync
+
 else
-    echo "Using drupal from your drupal_app folder"
+    echo "### Using drupal from your drupal_app folder ###"
 fi
 
 php-fpm
