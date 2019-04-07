@@ -41,3 +41,7 @@ xmlrpc.php
 *.swp
 db_host/
 code/
+DockerApproach/drupal_sync
+DockerApproach/drupal_app
+
+.phpintel/

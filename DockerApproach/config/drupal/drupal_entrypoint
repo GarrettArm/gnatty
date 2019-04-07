@@ -5,7 +5,7 @@ set -e
 # if no drupal directory, make drupal.  Otherwise, use the drupal you got.
 if [ ! -d /drupal_app/web/sites/default ]; then
     echo "### Making drupal from scratch ###"
-    # rm -R /var/www
+    # rm -R /var/www/html
     apt update
     apt install wget git curl -y
     cd /tmp
@@ -16,8 +16,14 @@ if [ ! -d /drupal_app/web/sites/default ]; then
     wget -O drush.phar https://github.com/drush-ops/drush-launcher/releases/download/0.4.2/drush.phar && \
         chmod +x drush.phar && \
         mv drush.phar /usr/bin/drush
-    composer create-project drupal-composer/drupal-project:8.x-dev /drupal_app --stability dev --no-interaction
-    cp /tmp/drupal_settings.php /drupal_app/web/sites/default/settings.php
+    composer create-project drupal-composer/drupal-project:8.x-dev /drupal_app --stability dev --no-interaction --no-install
+    # the following line will be unnecessary when the latest http-foundation no longer breaks install
+    sed -i 's|.*"drupal/drupal"\: \"\*\"|&,\n        "symfony/http-foundation": "3.4.24"|g' /drupal_app/composer.json
+    # here we can inject custom drupal modules to import
+    cd /drupal_app
+    composer update
+    # the following line concats our settings on the drupal settings file
+    cat /tmp/drupal_local_settings.php >> /drupal_app/web/sites/default/settings.php
     chown -R www-data:www-data /drupal_app
     mkdir -p /drupal_sync
     chown -R www-data:www-data /drupal_sync

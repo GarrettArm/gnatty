@@ -31,7 +31,7 @@ services:
     container_name: webapp
     env_file: .env
     volumes:
-      # - ./config/drupal/settings.php:/tmp/drupal_settings.php
+      - ./config/drupal/settings.php:/tmp/drupal_local_settings.php
       - ./config/drupal/drupal_entrypoint:/tmp/drupal_entrypoint
       - ./drupal_sync:/drupal_sync
       - ./drupal_app:/drupal_app
