@@ -25,7 +25,6 @@ if [ ! -d /drupal_app/web/sites/default ]; then
     # the following line concats our settings on the drupal settings file
     cat /tmp/drupal_local_settings.php >> /drupal_app/web/sites/default/settings.php
     chown -R www-data:www-data /drupal_app
-    mkdir -p /drupal_sync
     chown -R www-data:www-data /drupal_sync
 
 else

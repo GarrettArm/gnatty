@@ -84,7 +84,6 @@ You may edit the files in ./drupal_app as though you were changing the files in 
 ## to import config settings:
 
 `docker-composer exec webapp drush config-import`
-............................................................................
 
 ### some docker commands 
 
