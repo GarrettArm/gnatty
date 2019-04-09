@@ -66,7 +66,7 @@ Or you may:
 
 ```
 docker-compose down
-sudo rm -R ./drupal_app ./drupal_sync
+sudo rm -R ./drupal_app
 docker volume prune
 docker system prune
 docker-compose up
