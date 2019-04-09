@@ -25,14 +25,15 @@ sudo chmod +x /usr/local/bin/docker-compose
   - windows 10:
 
     - install github app from desktop.github.com
-    - clone this repo from github.com/lsulibraries/Drupal8Scaffoldings
+    - clone this repo from https://github.com/lsulibraries/Drupal8Scaffoldings
     - install docker app from https://docs.docker.com/docker-for-windows/install/   
         - you may need to create a free docker account
         - Hyper-V and Containers must be enabled in your Windows install.  Docker will attempt to enable them.
+        - go to docker toolbar icon, right-click, 'Settings'. in Settings panel, do 'Shared Drive', enable drive sharing on 'C' (or whichever disk you cloned the repo to.  (This setting allows docker access to "Drupal8Scaffoldings" folder, but not any other folder on C.) 
     - open powershell
-        - try 'docker -v' and 'docker-compose -v' to see the installed versions
+        - try 'docker -v' and 'docker-compose -v' to see whether they both installed
         - try 'docker run hello-world' (this will pull an image from the repo & run it)
-        - go to docker toolbar icon, right-click, 'Settings'. in Settings panel, do 'Shared Drive', enable 'C' drive sharing.
+
 
   - osX:
 
