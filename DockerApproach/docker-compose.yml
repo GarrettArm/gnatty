@@ -33,6 +33,7 @@ services:
     volumes:
       - ./config/drupal/settings.php:/tmp/drupal_local_settings.php
       - ./config/drupal/drupal_entrypoint:/tmp/drupal_entrypoint
+      - ./config/drupal/drupal_composer.json:/tmp/drupal_composer.json
       - ./drupal_sync:/drupal_sync
       - ./drupal_app:/drupal_app
     networks:
