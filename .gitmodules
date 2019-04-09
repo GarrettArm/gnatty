@@ -1,0 +1,3 @@
+[submodule "DockerApproach/drupal_sync"]
+	path = DockerApproach/drupal_sync
+	url = https://github.com/lsulibraries/drupal_sync
