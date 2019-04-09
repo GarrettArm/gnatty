@@ -42,7 +42,15 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 ```
 cd DockerApproach
-docker-compose up --build
+docker-compose up
+```
+
+# stop the container
+
+```
+ctrl-C
+-or-
+docker-compose stop 
 ```
 
 Note:  On each webapp build, the MySQL container will need a few seconds to prepare.  You'll see when it's ready, when localhost:8888 gives a page.  Until the database is built, the server will give bad responses.  Wait a few seconds on first build.
@@ -51,19 +59,31 @@ You'll soon see a base install Drupal at localhost:5000.
 And you'll see the drupal code inside webapp container mirrored on your computer at ./drupal_app/
 When you do a drupal sync from webapp container, those files will be mirrored at ./drupal_sync/
 
-## As someone who wants to wipe their drupal project and start clean
+## to wipe the drupal project and start clean:
 
 You may delete the repo folder, then git clone it again.
-Or you may `docker-compose down` `sudo rm -R ./drupal_app ./drupal_sync`  `docker volume prune && docker system prune && docker-compose up --build`
+Or you may:
 
-## As someone who wishes their code edits be immediately active on the drupal machine:
+```
+docker-compose down
+sudo rm -R ./drupal_app ./drupal_sync
+docker volume prune
+docker system prune
+docker-compose up
+```
+
+## to edit code and immediately see effect:
 
 You may edit the files in ./drupal_app as though you were changing the files in the container's drupal directory.
 
-## As someone who wants to export their config changes to share with others:
+## to export config changes to share with others:
 
-You may run `docker-compose exec webapp drush config-export`
-You may wait while I learn the commands for importing configs.  ;)
+`docker-compose exec webapp drush config-export`
+
+
+## to import config settings:
+
+`docker-composer exec webapp drush config-import`
 ............................................................................
 
 ### some docker commands 
