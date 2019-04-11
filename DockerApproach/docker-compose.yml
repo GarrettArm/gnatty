@@ -74,5 +74,5 @@ services:
       - db
     restart: always
     ports:
-      - "8888:80"
+      - "5001:80"
 
