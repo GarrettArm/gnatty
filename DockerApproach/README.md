@@ -49,6 +49,7 @@ docker-compose up
 ```
 
 See the app at localhost:5000 and localhost:5001
+"Use existing configuration" option
 
 # stop the container
 

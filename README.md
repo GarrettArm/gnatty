@@ -10,7 +10,8 @@ windows:
 Install git from:  https://git-scm.com/download/win
 
   default settings are ok.  I select "use git only from git bash" and then open git bash as my command prompt.
-  One setting is crucial -- "Checkout as-is, commit as-is".  Otherwise Windows will use \n\r line endings which will break the code in the containers and result in a "/usr/bin/env: 'bash\r': No such file or directory" error.
+
+  CRUCIAL -- "Checkout as-is, commit as-is".  Otherwise Windows will use \n\r line endings which will break the code in the containers and result in a "/usr/bin/env: 'bash\r': No such file or directory" error.
   
   If you already have this error post-install, reset the git lineendings config to "\n", with:
   
@@ -25,7 +26,5 @@ Install git from:  https://git-scm.com/download/win
   `git clone --recursive https://github.com/lsulibraries/Drupal8Scaffoldings`
   
   `cd Drupal8Scaffoldings/DockerApproach`
-  
-  `docker-compose up`
 
-See DockerApproach/README.md for more instruction on that approach
+See DockerApproach/README.md for more instruction
