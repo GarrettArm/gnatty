@@ -28,6 +28,8 @@ if [ ! -d /drupal_app/web/sites/default ]; then
     cd /drupal_app
     composer update
 
+    pecl install xdebug
+
     # the following line concats our settings on the drupal settings file
     cat /tmp/drupal_local_settings.php >> /drupal_app/web/sites/default/settings.php
     chown -R www-data:www-data /drupal_app
