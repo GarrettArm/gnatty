@@ -7,4 +7,4 @@ docker volume ls
 echo "##### these netword exist (should be the default three)"
 docker network ls
 echo "##### these containers exist (should be none)"
-docker-compose up
+docker-compose up --build

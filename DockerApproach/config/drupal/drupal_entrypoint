@@ -6,29 +6,9 @@ set -e
 if [ ! -d /drupal_app/web/sites/default ]; then
     echo "### Making drupal from scratch ###"
 
-    rm -R /var/www/html
-
-    apt update
-    apt install wget git curl -y
-
-    cd /tmp
-    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
-        php composer-setup.php && \
-        mv composer.phar /usr/bin/composer && \
-        php -r "unlink('composer-setup.php');"
-    wget -O drush.phar https://github.com/drush-ops/drush-launcher/releases/download/0.4.2/drush.phar && \
-        chmod +x drush.phar && \
-        mv drush.phar /usr/bin/drush
     composer create-project drupal-composer/drupal-project:8.x-dev /drupal_app --stability dev --no-interaction --no-install
-    
-    # here we can inject custom drupal modules to import
-    
     cp /tmp/drupal_composer.json /drupal_app/composer.json
-    
-    cd /drupal_app
     composer update
-
-    pecl install xdebug
 
     # the following line concats our settings on the drupal settings file
     cat /tmp/drupal_local_settings.php >> /drupal_app/web/sites/default/settings.php

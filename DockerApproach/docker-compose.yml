@@ -27,7 +27,9 @@ services:
       - webapp
 
   webapp:
-    image: drupal:8.6.13-fpm
+    build:
+      context: .
+      dockerfile: DrupalDockerfile
     container_name: webapp
     env_file: .env
     volumes:
@@ -36,6 +38,7 @@ services:
       - ./config/drupal/drupal_composer.json:/tmp/drupal_composer.json
       - ./drupal_sync:/drupal_sync
       - ./drupal_app:/drupal_app
+
     networks:
       - db_network
       - httpd_network
