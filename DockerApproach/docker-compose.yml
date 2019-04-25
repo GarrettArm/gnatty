@@ -36,6 +36,7 @@ services:
       - ./config/drupal/settings.php:/tmp/drupal_local_settings.php
       - ./config/drupal/drupal_entrypoint:/tmp/drupal_entrypoint
       - ./config/drupal/drupal_composer.json:/tmp/drupal_composer.json
+      - ./config/drupal/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
       - ./drupal_sync:/drupal_sync
       - drupal_data:/drupal_app
     networks:
