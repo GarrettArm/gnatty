@@ -18,7 +18,7 @@ services:
       NGINX_SERVER_ROOT: /drupal_app/web
     volumes:
       - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - ./drupal_app:/drupal_app
+      - drupal_data:/drupal_app
     networks:
       - frontend_network
     ports:
@@ -37,8 +37,7 @@ services:
       - ./config/drupal/drupal_entrypoint:/tmp/drupal_entrypoint
       - ./config/drupal/drupal_composer.json:/tmp/drupal_composer.json
       - ./drupal_sync:/drupal_sync
-      - ./drupal_app:/drupal_app
-      # - drupal_app:/drupal_app
+      - drupal_data:/drupal_app
     networks:
       - db_network
       - frontend_network
@@ -83,7 +82,7 @@ services:
     image: rastasheep/ubuntu-sshd:18.04
     container_name: ssh
     volumes:
-      - ./drupal_app:/drupal_app
+      - drupal_data:/drupal_app
     depends_on:
       - webapp
     ports:
