@@ -38,6 +38,7 @@ services:
       - ./config/drupal/drupal_composer.json:/tmp/drupal_composer.json
       - ./drupal_sync:/drupal_sync
       - ./drupal_app:/drupal_app
+      # - drupal_app:/drupal_app
     networks:
       - db_network
       - frontend_network
@@ -77,4 +78,14 @@ services:
     restart: always
     ports:
       - "5001:80"
+
+  ssh:
+    image: rastasheep/ubuntu-sshd:18.04
+    container_name: ssh
+    volumes:
+      - ./drupal_app:/drupal_app
+    depends_on:
+      - webapp
+    ports:
+      - "5022:22"
 
