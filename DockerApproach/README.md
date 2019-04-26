@@ -48,6 +48,16 @@ cd DockerApproach
 docker-compose up
 ```
 
+# make www-data:www-data owner of drupal_sync folder
+
+only needed on first install
+
+```
+cd DockerApproach
+docker-compose exec webapp chown -R www-data:www-data /drupal_sync
+```
+
+
 See the app at localhost:5000 and localhost:5001
 "Use existing configuration" option
 

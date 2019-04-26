@@ -20,14 +20,10 @@ RUN wget -O drush.phar https://github.com/drush-ops/drush-launcher/releases/down
 RUN composer create-project drupal-composer/drupal-project:8.x-dev /drupal_app --stability dev --no-interaction --no-install
 COPY ./config/drupal/drupal_composer.json /drupal_app/composer.json
 WORKDIR /drupal_app
-RUN composer update
+RUN composer update \
+    && chown -R www-data:www-data /drupal_app
 COPY ./config/drupal/settings.php /tmp/drupal_local_settings.php
 RUN cat /tmp/drupal_local_settings.php >> /drupal_app/web/sites/default/settings.php
 
-RUN chown -R www-data:www-data /drupal_app \
-    && mkdir /drupal_sync \
-    && chown -R www-data:www-data /drupal_sync
-
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
-
