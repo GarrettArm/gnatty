@@ -33,9 +33,9 @@ services:
     container_name: webapp
     env_file: .env
     volumes:
-      - ./config/drupal/settings.php:/tmp/drupal_local_settings.php
-      - ./config/drupal/drupal_entrypoint:/tmp/drupal_entrypoint
-      - ./config/drupal/drupal_composer.json:/tmp/drupal_composer.json
+      # - ./config/drupal/settings.php:/tmp/drupal_local_settings.php
+      # - ./config/drupal/drupal_entrypoint:/tmp/drupal_entrypoint
+      # - ./config/drupal/drupal_composer.json:/tmp/drupal_composer.json
       - ./config/drupal/php.ini-development:/usr/local/etc/php/php.ini
       - ./config/drupal/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
       - ./drupal_sync:/drupal_sync
@@ -46,7 +46,7 @@ services:
     depends_on:
       - db
     restart: always
-    entrypoint: /tmp/drupal_entrypoint
+    # entrypoint: /tmp/drupal_entrypoint
     working_dir: /drupal_app
 
   db:

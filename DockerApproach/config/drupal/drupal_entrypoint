@@ -6,14 +6,14 @@ set -e
 if [ ! -d /drupal_app/web/sites/default ]; then
     echo "### Making drupal from scratch ###"
 
-    composer create-project drupal-composer/drupal-project:8.x-dev /drupal_app --stability dev --no-interaction --no-install
-    cp /tmp/drupal_composer.json /drupal_app/composer.json
-    composer update
+    # composer create-project drupal-composer/drupal-project:8.x-dev /drupal_app --stability dev --no-interaction --no-install
+    # cp /tmp/drupal_composer.json /drupal_app/composer.json
+    # composer update
 
     # the following line concats our settings on the drupal settings file
-    cat /tmp/drupal_local_settings.php >> /drupal_app/web/sites/default/settings.php
-    chown -R www-data:www-data /drupal_app
-    chown -R www-data:www-data /drupal_sync
+    # cat /tmp/drupal_local_settings.php >> /drupal_app/web/sites/default/settings.php
+    # chown -R www-data:www-data /drupal_app
+    # chown -R www-data:www-data /drupal_sync
 
 else
     echo "### Using drupal from your drupal_app folder ###"
