@@ -24,15 +24,13 @@ sudo chmod +x /usr/local/bin/docker-compose
 
   - windows 10:
 
-    - install github app from desktop.github.com
-    - clone this repo from https://github.com/lsulibraries/Drupal8Scaffoldings
     - install docker app from https://docs.docker.com/docker-for-windows/install/   
         - you may need to create a free docker account
         - "Use linux containers"
         - Hyper-V and Containers must be enabled in your Windows install.  Docker will attempt to enable them.
         - you may need to restart your computer.
     - go to docker toolbar icon, right-click, 'Settings'. in Settings panel, do 'Shared Drive', enable drive sharing on the C drive (or whichever drive the repo was cloned to).  (This setting allows docker access to "Drupal8Scaffoldings" folder, but not any other folder on C.) 
-    - open gitbash
+    - open PowerShell or gitbash (but not PowerShell ISE)
         - try `docker -v` and `docker-compose -v` to see whether they both installed
         - try `docker run hello-world` (this will pull an image from the repo & run it)
 
@@ -45,7 +43,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 ```
 cd DockerApproach
-docker-compose up
+docker-compose up --build
 ```
 
 # make www-data:www-data owner of drupal_sync folder
@@ -59,7 +57,7 @@ docker-compose exec webapp chown -R www-data:www-data /drupal_sync
 
 
 See the app at localhost:5000 and localhost:5001
-"Use existing configuration" option
+Select the "Use existing configuration" option at localhost:5000
 
 # stop the container
 
@@ -69,7 +67,7 @@ ctrl-C
 docker-compose stop 
 ```
 
-Note:  On each webapp build, the MySQL container will need a few seconds to prepare.  You'll see when it's ready, when localhost:8888 gives a page.  Until the database is built, the server will give bad responses.  Wait a few seconds on first build.
+Note:  On each webapp build, the MySQL container will need a few seconds to prepare.  You'll see when it's ready, when localhost:5001 gives a page.  Until the database is built, the server will give bad responses.  Wait a few seconds on first build.
 
 You'll soon see a base install Drupal at localhost:5000.
 And you'll see the drupal code inside webapp container mirrored on your computer at ./drupal_app/
@@ -85,7 +83,7 @@ docker-compose down
 sudo rm -R ./drupal_app
 docker volume prune
 docker system prune
-docker-compose up
+docker-compose up --build
 ```
 
 ## to edit code and immediately see effect:
