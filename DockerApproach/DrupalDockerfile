@@ -1,6 +1,4 @@
-FROM drupal:8.6.13-fpm
-
-RUN ls -la
+FROM drupal:8.6.15-fpm
 
 RUN rm -R /var/www/html
 
@@ -13,7 +11,7 @@ RUN cd /tmp \
     && mv composer.phar /usr/bin/composer \
     && php -r "unlink('composer-setup.php');"
 
-RUN wget -O drush.phar https://github.com/drush-ops/drush-launcher/releases/download/0.4.2/drush.phar \
+RUN wget -O drush.phar https://github.com/drush-ops/drush-launcher/releases/download/0.6.0/drush.phar \
     && chmod +x drush.phar \
     && mv drush.phar /usr/bin/drush
 
@@ -25,5 +23,5 @@ RUN composer update \
 COPY ./config/drupal/settings.php /tmp/drupal_local_settings.php
 RUN cat /tmp/drupal_local_settings.php >> /drupal_app/web/sites/default/settings.php
 
-RUN pecl install xdebug \
-    && docker-php-ext-enable xdebug
+# RUN pecl install xdebug \
+#     && docker-php-ext-enable xdebug
