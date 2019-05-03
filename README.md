@@ -66,16 +66,16 @@ sudo chmod +x /usr/local/bin/docker-compose
 
     - to be added
 
-## run the containers
+## To run the containers
 
 ```
 cd DockerApproach
 docker-compose up --build
 ```
 
-## make www-data:www-data owner of drupal_sync folder
+### make www-data:www-data owner of drupal_sync folder
 
-only needed on first install
+only needed on first run
 
 ```
 cd DockerApproach
@@ -86,7 +86,7 @@ docker-compose exec webapp chown -R www-data:www-data /drupal_sync
 See the app at localhost:5000 and localhost:5001
 Select the "Use existing configuration" option at localhost:5000
 
-## stopping the containers
+## To stop the containers
 
 ```
 ctrl-C
@@ -100,7 +100,7 @@ You'll soon see a base install Drupal at localhost:5000.
 And you'll see the drupal code inside webapp container mirrored on your computer at ./drupal_app/
 When you do a drupal sync from webapp container, those files will be mirrored at ./drupal_sync/
 
-## to wipe the drupal project and start clean:
+## To wipe the drupal project and start clean:
 
 You may delete the repo folder, then git clone it again.
 Or you may:
@@ -112,16 +112,16 @@ docker system prune
 docker-compose up --build
 ```
 
-## to edit code and immediately see effect:
+## To edit code and immediately see effect:
 
 ssh to localhost:5022  user:'root' password:'root'
 
-## to export config changes to share with others:
+## To export config changes to drupal_sync/:
 
 `docker-compose exec webapp drush config-export`
 
 
-## to import config settings:
+## To import config settings from drupal_sync/:
 
 `docker-composer exec webapp drush config-import`
 
