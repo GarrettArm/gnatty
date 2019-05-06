@@ -68,8 +68,9 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 ## To run the containers
 
+#### In the file ".env", change MYSQL_USER, MYSQL_PASSWORD, and MYSQL_ROOT_PASSWORD to something.
+
 ```
-cd DockerApproach
 docker-compose up --build
 ```
 
@@ -78,7 +79,6 @@ docker-compose up --build
 only needed on first run
 
 ```
-cd DockerApproach
 docker-compose exec webapp chown -R www-data:www-data /drupal_sync
 ```
 
