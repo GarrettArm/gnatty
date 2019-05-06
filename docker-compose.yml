@@ -78,9 +78,12 @@ services:
 
   ssh:
     image: rastasheep/ubuntu-sshd:18.04
+    env_file: .env
     container_name: ssh
     volumes:
       - drupal_data:/drupal_app
+      - ./config/ssh/ssh_entrypoint.sh:/tmp/ssh_entrypoint.sh
+    entrypoint: /tmp/ssh_entrypoint.sh
     depends_on:
       - webapp
     ports:

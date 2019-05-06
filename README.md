@@ -68,7 +68,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 ## To run the containers
 
-#### In the file ".env", change MYSQL_USER, MYSQL_PASSWORD, and MYSQL_ROOT_PASSWORD to something.
+#### In the file ".env", change MYSQL_USER, MYSQL_PASSWORD, SSH_PASSWORD, and MYSQL_ROOT_PASSWORD to something.
 
 ```
 docker-compose up --build
@@ -114,7 +114,7 @@ docker-compose up --build
 
 ## To edit code and immediately see effect:
 
-ssh to localhost:5022  user:'root' password:'root'
+ssh to localhost:5022  user:"root" password:"{whatever you change .env's "SSH_PASSWORD" to}".
 
 ## To export config changes to drupal_sync/:
 
