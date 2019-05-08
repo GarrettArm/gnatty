@@ -70,6 +70,8 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 #### In the file ".env", change MYSQL_USER, MYSQL_PASSWORD, SSH_PASSWORD, and MYSQL_ROOT_PASSWORD to something.
 
+Change the passwords at least.  Otherwise, Jimmy Random in Accounting can navigate on his computer to http://{ your ip address }:5001 and access the whole drupal database.  Or ssh into the drupal8 instance.  Changing the passwords in ".env" will control all the passwords on your instance.  Production will get secret values.
+
 ```
 docker-compose up --build
 ```
