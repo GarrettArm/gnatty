@@ -85,8 +85,13 @@ docker-compose exec webapp chown -R www-data:www-data /drupal_sync
 ```
 
 
-See the app at localhost:5000 and localhost:5001
+See the app at localhost:5000
+
 Select the "Use existing configuration" option at localhost:5000
+
+See a database viewer at localhost:5001
+
+Use
 
 ## To stop the containers
 
@@ -114,14 +119,22 @@ docker system prune
 docker-compose up --build
 ```
 
-## To edit code and immediately see effect:
+## To enter a bash prompt on the drupal container:
 
-ssh -p 5022 root@localhost (you will be prompted for the password in .env file)
+`docker-compose exec webapp bash`
+
+Note you can substitute any container's nickname.  You can also substitute any command.  
+
+Example:  If you want to run "ls /etc" on the nginx container, `docker-compose exec nginx ls /etc`
+
+## To connect an IDE, Putty, Sublime, etc to the drupal_app folder:
+
+Configure your program to sftp connect to server:localhost, port:5022, user:root, password:{whatever SSH_PASSWORD you set in .env}
+If your code changes aren't applying to the running drupal, you may need to `docker-compose restart nginx` or `docker-compose restart webapp`
 
 ## To export config changes to drupal_sync/:
 
 `docker-compose exec webapp drush config-export`
-
 
 ## To import config settings from drupal_sync/:
 
