@@ -85,13 +85,9 @@ docker-compose exec webapp chown -R www-data:www-data /drupal_sync
 ```
 
 
-See the app at localhost:5000
-
-Select the "Use existing configuration" option at localhost:5000
+See the app at localhost:5000 and select the "Use existing configuration" option
 
 See a database viewer at localhost:5001
-
-Use
 
 ## To stop the containers
 
