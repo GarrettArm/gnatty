@@ -116,7 +116,7 @@ docker-compose up --build
 
 ## To edit code and immediately see effect:
 
-ssh to localhost:5022  user:"root" password:"{whatever you change .env's "SSH_PASSWORD" to}".
+ssh -p 5022 root@localhost (you will be prompted for the password in .env file)
 
 ## To export config changes to drupal_sync/:
 
