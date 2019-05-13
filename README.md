@@ -115,6 +115,10 @@ docker system prune
 docker-compose up --build
 ```
 
+## To edit a theme file:
+
+`composer require` to install the theme, then look in this directory for a folder "drupal_theme".  It is synced to the drupal_app/web/themes/contrib/ folder.  The files may be owned by root:root, which require the editor to run as root.
+
 ## To enter a bash prompt on the drupal container:
 
 `docker-compose exec webapp bash`
@@ -125,7 +129,9 @@ Example:  If you want to run "ls /etc" on the nginx container, `docker-compose e
 
 ## To connect an IDE, Putty, Sublime, etc to the drupal_app folder:
 
-Configure your program to sftp connect to server:localhost, port:5022, user:root, password:{whatever SSH_PASSWORD you set in .env}
+The SSH container is commented out, because no one has needed this functionality so far.  If you do need it, one may un-comment the ssh service in docker-compose.yml & then `docker-compose up`.
+
+Then, configure your program to sftp connect to server:localhost, port:5022, user:root, password:{whatever SSH_PASSWORD you set in .env}
 If your code changes aren't applying to the running drupal, you may need to `docker-compose restart nginx` or `docker-compose restart webapp`
 
 ## To export config changes to drupal_sync/:
