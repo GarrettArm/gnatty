@@ -3,7 +3,7 @@ FROM drupal:8.6.15-fpm
 RUN rm -R /var/www/html
 
 RUN apt update \
-    && apt install wget git curl nano tree unzip -y
+    && apt install wget git curl nano tree unzip mysql-client -y
 
 RUN cd /tmp \
     && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
@@ -25,6 +25,3 @@ RUN cat /tmp/drupal_local_settings.php >> /drupal_app/web/sites/default/settings
 
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
-
-RUN apt update \
-    && apt install mysql-client -y

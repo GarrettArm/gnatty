@@ -37,6 +37,7 @@ services:
       - ./config/drupal/php.ini-development:/usr/local/etc/php/php.ini
       - ./config/drupal/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
       - ./drupal_sync:/drupal_sync
+      - ./drupal_theme:/drupal_app/web/themes/contrib
       - drupal_data:/drupal_app
     networks:
       - db_network
@@ -56,36 +57,36 @@ services:
     restart: always
     command: --default-authentication-plugin=mysql_native_password
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:4.7
-    container_name: phpmyadmin
-    env_file: .env
-    environment:
-      PMA_HOST: ${MYSQL_HOST}
-      PMA_USER: ${MYSQL_USER}
-      PMA_PASSWORD: ${MYSQL_PASSWORD}
-      PMA_ARBITRARY: 0
-      PMA_PORT: 3306
-    networks:
-      - db_network
-    volumes:
-      - /sessions
-    depends_on:
-      - db
-    restart: always
-    ports:
-      - "5001:80"
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin:4.7
+  #   container_name: phpmyadmin
+  #   env_file: .env
+  #   environment:
+  #     PMA_HOST: ${MYSQL_HOST}
+  #     PMA_USER: ${MYSQL_USER}
+  #     PMA_PASSWORD: ${MYSQL_PASSWORD}
+  #     PMA_ARBITRARY: 0
+  #     PMA_PORT: 3306
+  #   networks:
+  #     - db_network
+  #   volumes:
+  #     - /sessions
+  #   depends_on:
+  #     - db
+  #   restart: always
+  #   ports:
+  #     - "5001:80"
 
-  ssh:
-    image: rastasheep/ubuntu-sshd:18.04
-    env_file: .env
-    container_name: ssh
-    volumes:
-      - drupal_data:/drupal_app
-      - ./config/ssh/ssh_entrypoint.sh:/tmp/ssh_entrypoint.sh
-    entrypoint: /tmp/ssh_entrypoint.sh
-    depends_on:
-      - webapp
-    ports:
-      - "5022:22"
+  # ssh:
+  #   image: rastasheep/ubuntu-sshd:18.04
+  #   env_file: .env
+  #   container_name: ssh
+  #   volumes:
+  #     - drupal_data:/drupal_app
+  #     - ./config/ssh/ssh_entrypoint.sh:/tmp/ssh_entrypoint.sh
+  #   entrypoint: /tmp/ssh_entrypoint.sh
+  #   depends_on:
+  #     - webapp
+  #   ports:
+  #     - "5022:22"
 
