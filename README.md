@@ -83,7 +83,11 @@ only needed on first run
 ```
 docker-compose exec webapp chown -R www-data:www-data /drupal_sync
 ```
+Note:  On each webapp build, the MySQL container will need a few seconds to prepare.  You'll see when it's ready, when localhost:5001 gives a page.  Until the database is built, the server will give bad responses.  Wait a few seconds on first build.
 
+You'll soon see a base install Drupal at localhost:5000.
+And you'll see the drupal code inside webapp container mirrored on your computer at ./drupal_app/
+When you do a drupal sync from webapp container, those files will be mirrored at ./drupal_sync/
 
 See the app at localhost:5000 and select the "Use existing configuration" option
 
@@ -96,13 +100,6 @@ ctrl-C
 -or-
 docker-compose stop 
 ```
-
-Note:  On each webapp build, the MySQL container will need a few seconds to prepare.  You'll see when it's ready, when localhost:5001 gives a page.  Until the database is built, the server will give bad responses.  Wait a few seconds on first build.
-
-You'll soon see a base install Drupal at localhost:5000.
-And you'll see the drupal code inside webapp container mirrored on your computer at ./drupal_app/
-When you do a drupal sync from webapp container, those files will be mirrored at ./drupal_sync/
-
 ## To wipe the drupal project and start clean:
 
 You may delete the repo folder, then git clone it again.
