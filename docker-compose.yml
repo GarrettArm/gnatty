@@ -57,25 +57,25 @@ services:
     restart: always
     command: --default-authentication-plugin=mysql_native_password
 
-  # phpmyadmin:
-  #   image: phpmyadmin/phpmyadmin:4.7
-  #   container_name: phpmyadmin
-  #   env_file: .env
-  #   environment:
-  #     PMA_HOST: ${MYSQL_HOST}
-  #     PMA_USER: ${MYSQL_USER}
-  #     PMA_PASSWORD: ${MYSQL_PASSWORD}
-  #     PMA_ARBITRARY: 0
-  #     PMA_PORT: 3306
-  #   networks:
-  #     - db_network
-  #   volumes:
-  #     - /sessions
-  #   depends_on:
-  #     - db
-  #   restart: always
-  #   ports:
-  #     - "5001:80"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:4.7
+    container_name: phpmyadmin
+    env_file: .env
+    environment:
+      PMA_HOST: ${MYSQL_HOST}
+      PMA_USER: ${MYSQL_USER}
+      PMA_PASSWORD: ${MYSQL_PASSWORD}
+      PMA_ARBITRARY: 0
+      PMA_PORT: 3306
+    networks:
+      - db_network
+    volumes:
+      - /sessions
+    depends_on:
+      - db
+    restart: always
+    ports:
+      - "5001:80"
 
   # ssh:
   #   image: rastasheep/ubuntu-sshd:18.04
