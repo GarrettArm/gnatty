@@ -27,6 +27,20 @@ services:
       - webapp
     restart: always
 
+  # httpd:
+  #   image: httpd:2.4.39
+  #   container_name: httpd
+  #   volumes:
+  #     - ./config/httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf
+  #     - drupal_data:/usr/local/apache2/htdocs/
+  #   networks:
+  #     - frontend_network
+  #   ports:
+  #     - "5005:80"
+  #   depends_on:
+  #     - webapp
+  #   restart: always
+
   webapp:
     build:
       context: .
@@ -35,7 +49,7 @@ services:
     env_file: .env
     volumes:
       - ./config/drupal/php.ini-development:/usr/local/etc/php/php.ini
-      - ./config/drupal/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+      # - ./config/drupal/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
       - ./drupal_sync:/drupal_sync
       - ./drupal_theme:/drupal_app/web/themes/contrib
       - drupal_data:/drupal_app
@@ -57,25 +71,25 @@ services:
     restart: always
     command: --default-authentication-plugin=mysql_native_password
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:4.7
-    container_name: phpmyadmin
-    env_file: .env
-    environment:
-      PMA_HOST: ${MYSQL_HOST}
-      PMA_USER: ${MYSQL_USER}
-      PMA_PASSWORD: ${MYSQL_PASSWORD}
-      PMA_ARBITRARY: 0
-      PMA_PORT: 3306
-    networks:
-      - db_network
-    volumes:
-      - /sessions
-    depends_on:
-      - db
-    restart: always
-    ports:
-      - "5001:80"
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin:4.7
+  #   container_name: phpmyadmin
+  #   env_file: .env
+  #   environment:
+  #     PMA_HOST: ${MYSQL_HOST}
+  #     PMA_USER: ${MYSQL_USER}
+  #     PMA_PASSWORD: ${MYSQL_PASSWORD}
+  #     PMA_ARBITRARY: 0
+  #     PMA_PORT: 3306
+  #   networks:
+  #     - db_network
+  #   volumes:
+  #     - /sessions
+  #   depends_on:
+  #     - db
+  #   restart: always
+  #   ports:
+  #     - "5001:80"
 
   # ssh:
   #   image: rastasheep/ubuntu-sshd:18.04
