@@ -68,6 +68,7 @@ services:
       - db_network
     volumes:
       - db_data:/var/lib/mysql
+      - ./db_shared:/docker-entrypoint-initdb.d/
     restart: always
     command: --default-authentication-plugin=mysql_native_password
 
