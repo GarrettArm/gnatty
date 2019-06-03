@@ -6,7 +6,7 @@ A Drupal8 build for lib.lsu.edu
 
 `cd gnatty`
 
-change the password in the file ".env"
+change the passwords in the file ".env"
 
 copy R/TechInit/Drupal8DbAuthoritative/drupal8_sandbox_db.sql to ./db_shared/
 
