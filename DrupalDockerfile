@@ -23,5 +23,5 @@ RUN composer update \
 COPY ./config/drupal/settings.php /tmp/drupal_local_settings.php
 RUN cat /tmp/drupal_local_settings.php >> /drupal_app/web/sites/default/settings.php
 
-RUN pecl install xdebug \
-    && docker-php-ext-enable xdebug
+# RUN pecl install xdebug \
+#     && docker-php-ext-enable xdebug
