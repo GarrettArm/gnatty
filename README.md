@@ -132,7 +132,7 @@ docker-compose up --build
 
 ## To edit a theme file:
 
-`composer require` to install the theme, then look in this directory for a folder "drupal_theme".  It is synced to the drupal_app/web/themes/contrib/ folder.  The files may be owned by root:root, which require the editor to run as root.
+This is still being decided.  ./gnatty_theme/ is a local folder synced to the remote /drupal_app/web/themes/contrib/ folder.
 
 ## To enter a bash prompt on the drupal container:
 
@@ -151,11 +151,11 @@ If your code changes aren't applying to the running drupal, you may need to `doc
 
 ## To export config changes to drupal_sync/:
 
-`docker-compose exec webapp drush config-export`
+`docker-compose exec webapp drush config-export -y`
 
 ## To import config settings from drupal_sync/:
 
-`docker-composer exec webapp drush config-import`
+`docker-composer exec webapp drush config-import -y`
 
 ## To capture changes to db & push to production:
 
