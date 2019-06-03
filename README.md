@@ -7,6 +7,7 @@ A Drupal8 build for lib.lsu.edu
 `cd gnatty`
 
 change the password in the file ".env"
+
 copy R/TechInit/Drupal8DbAuthoritative/drupal8_sandbox_db.sql to ./db_shared/
 
 `docker-compose up --build -d`
@@ -155,6 +156,19 @@ If your code changes aren't applying to the running drupal, you may need to `doc
 ## To import config settings from drupal_sync/:
 
 `docker-composer exec webapp drush config-import`
+
+## To capture changes to db & push to production:
+
+Full production db dump is at some permanent file location.
+
+Do a fresh build of gnatty, copy the production sql dump to db_shared, do only revisions to drupal that you want on production.  When finished someone will dump the database to an sql file.
+
+If it passes tests, the sql dump gets saved in the permanent location & it also gets ingested to production mysql.  Ingest to production is the same as ingest to test:
+
+inside server (on maintenance mode):
+
+`cp {production sql dump} ./db_shared
+docker-compose down db && docker-compose up db`
 
 # some docker commands 
 
