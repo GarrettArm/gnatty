@@ -1,5 +1,24 @@
 A Drupal8 build for lib.lsu.edu
 
+## Build, if your computer's got the dependencies
+
+`git clone --recurse-submodules https://github.com/lsulibraries/gnatty`
+
+`cd gnatty`
+
+change the password in the file ".env"
+copy R/TechInit/Drupal8DbAuthoritative/drupal8_sandbox_db.sql to ./db_shared/
+
+`docker-compose up --build -d`
+
+after db is done building:
+
+`docker-compose exec webapp drush config-import -y`
+
+See the app at localhost:5000
+
+# if you need dependecies:
+
 ## Git
 
 ### Windows10:
@@ -21,11 +40,11 @@ Install git from:  https://git-scm.com/download/win
 
   from whatever directory you want the repo folder pulled to:
 
-  `git clone --recursive https://github.com/lsulibraries/gnatty`
+  `git clone --recurse-submodules https://github.com/lsulibraries/gnatty`
   
   `cd gnatty`
 
-## Install docker-compose version 1.22 or greater
+## Docker-Compose, version 1.22 or greater
 
 ### linux:
 
@@ -89,9 +108,7 @@ You'll soon see a base install Drupal at localhost:5000.
 And you'll see the drupal code inside webapp container mirrored on your computer at ./drupal_app/
 When you do a drupal sync from webapp container, those files will be mirrored at ./drupal_sync/
 
-See the app at localhost:5000 and select the "Use existing configuration" option
-
-See a database viewer at localhost:5001
+See the app at localhost:5000
 
 ## To stop the containers
 
@@ -145,30 +162,26 @@ If your code changes aren't applying to the running drupal, you may need to `doc
 
         -a      {including stopped ones}
 
-    network     
-
-        ls      {list}
-
-        prune   {remove inactive ones}
-
     volume
 
         ls      {list}
 
-        prune   {remove inactive ones}
+        prune   {remove inactive volumes}
 
                 - this will destroy the container's persistent data
 
+        rm      {removes specific volume}
 
 docker-compose
 
     up      {start the containers}
 
         -d  {in detached mode}
-        --build {make the docker container if it doesn't exist}
+        --build {make the docker image if it doesn't yet exist}
 
-    down    {kill & remove the containers}
+    down    {kill & remove the containers,
+             preserves volumes and images}
 
     exec container_name /bin/bash {or other program from inside the container}
 
-    logs container_name     {show logs}
+    logs     {show logs}
