@@ -1,3 +1,4 @@
+
 # Ignore configuration files that may contain sensitive information.
 sites/*/*settings*.php
 sites/example.sites.php
@@ -39,8 +40,6 @@ xmlrpc.php
 /themes
 
 *.swp
-db_host/
 code/
-DockerApproach/drupal_app
 
 .phpintel/
