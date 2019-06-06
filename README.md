@@ -170,6 +170,16 @@ inside server (on maintenance mode):
 `cp {production sql dump} ./db_shared
 docker-compose down db && docker-compose up db`
 
+
+## Logging:
+
+three containers are useful to the outside world:  webapp, nginx, and db.  Their logs are piped away from standard out, and instead piped through logstash into elasticsearch.  Kibana is a visualizer for elasticsearch logs.  (ELK and elasticstack are nicknames you may hear for elasticsearch + logstash + kibana.)  Because their logs are piped away from stdout, we can no longer see their logs at `docker-compose logs webapp` or during `docker-composer up`.  Hopefully, the kibana interface will more than aleviate that limitation.
+
+The elasticsearch API is at `localhost:9200`.  A useful link is `http://localhost:9200/_cat/indices`.
+The kibana view is at `localhost:5601`.  If kibana isn't configured yet, click "Kibana: Index Patterns", type "logstash\*" as the index pattern, "Next step",  select "timestamp" from the Time Filter field name.  Then click the compass icon to see a list of logged events.  
+If you have time, check out a video on things Kibana can do -- it might replace Google Analytics for our site.  Analytics was a freebee that came along with the log management stack.
+
+
 # some docker commands 
 
     ps    {show containers}
