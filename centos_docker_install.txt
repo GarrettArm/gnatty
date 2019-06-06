@@ -24,6 +24,9 @@ docker-compose --version
 # should show some version info if install worked
 
 
+# increase so that elasticsearch doesn't go over max.
+# also edit /etc/sysctl.conf so that "vm.max_map_count=524288"
+-sudo sysctl -w vm.max_map_count=524288
 
 
 
