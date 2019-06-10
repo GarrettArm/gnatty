@@ -17,7 +17,7 @@ networks:
 
 services:
   nginx:
-    image: nginx:1.15.10
+    image: nginx:1.17.0
     container_name: nginx
     environment:
       NGINX_SERVER_ROOT: /drupal_app/web
@@ -45,7 +45,6 @@ services:
     env_file: .env
     volumes:
       - ./config/drupal/php.ini-development:/usr/local/etc/php/php.ini
-      # - ./config/drupal/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
       - ./drupal_sync:/drupal_sync
       - ./gnatty_theme:/drupal_app/web/themes/contrib
       - drupal_data:/drupal_app
@@ -65,7 +64,7 @@ services:
     restart: always
 
   db:
-    image: mysql:8.0.15
+    image: mysql:8.0.16
     container_name: db
     env_file: .env
     volumes:
@@ -82,7 +81,7 @@ services:
     command: --default-authentication-plugin=mysql_native_password
 
   logstash:
-    image: logstash:7.0.1
+    image: logstash:7.1.1
     container_name: logstash
     networks:
       - elk_network
@@ -96,7 +95,7 @@ services:
       - elasticsearch
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:7.0.1
+    image: docker.elastic.co/kibana/kibana:7.1.1
     container_name: kibana
     depends_on:
       - logstash
@@ -108,7 +107,7 @@ services:
       - elk_network
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.0.1
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.1.1
     container_name: elasticsearch
     environment:
       - bootstrap.memory_lock=true
