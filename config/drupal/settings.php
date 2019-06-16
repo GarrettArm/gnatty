@@ -1,16 +1,17 @@
 
-if (getenv('DRUPAL_SALT') && empty($settings['hash_salt'])) {
-    $settings['hash_salt'] = getenv('DRUPAL_SALT');
+
+if (file_get_contents('/run/secrets/drupal_salt') && empty($settings['hash_salt'])) {
+    $settings['hash_salt'] = file_get_contents('/run/secrets/drupal_salt');
 };
 
 $config_directories['sync'] = '/drupal_sync';
 
 $databases['default']['default'] = array (
-  'database' => getenv('MYSQL_DATABASE'),
-  'username' => getenv('MYSQL_USER'),
-  'password' => getenv('MYSQL_PASSWORD'),
+  'database' => file_get_contents('/run/secrets/mysql_database'),
+  'username' => file_get_contents('/run/secrets/mysql_user'),
+  'password' => file_get_contents('/run/secrets/mysql_password'),
   'prefix' => '',
-  'host' => getenv('MYSQL_HOST'),
+  'host' => file_get_contents('/run/secrets/mysql_host'),
   'port' => '3306',
   'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
   'driver' => 'mysql',

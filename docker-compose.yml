@@ -15,6 +15,27 @@ networks:
     driver: bridge
 
 
+secrets:
+  db_host:
+    file: ./secrets/db_host
+  drupal_salt:
+    file: ./secrets/drupal_salt
+  mysql_database:
+    file: ./secrets/mysql_database
+  mysql_host:
+    file: ./secrets/mysql_host
+  mysql_password:
+    file: ./secrets/mysql_password
+  mysql_root_password:
+    file: ./secrets/mysql_root_password
+  mysql_user:
+    file: ./secrets/mysql_user
+  web_group:
+    file: ./secrets/web_group
+  web_user:
+    file: ./secrets/web_user
+
+
 services:
   nginx:
     image: nginx:1.17.0
@@ -42,7 +63,13 @@ services:
       context: .
       dockerfile: DrupalDockerfile
     container_name: webapp
-    env_file: .env
+    # env_file: .env
+    secrets:
+      - drupal_salt
+      - mysql_database
+      - mysql_user
+      - mysql_password
+      - mysql_host
     volumes:
       - ./config/drupal/php.ini-development:/usr/local/etc/php/php.ini
       - ./drupal_sync:/drupal_sync
@@ -67,6 +94,18 @@ services:
     image: mysql:8.0.16
     container_name: db
     env_file: .env
+    # environment:
+    #   MYSQL_ROOT_PASSWORD: /run/secrets/mysql_root_password
+    #   MYSQL_USER: /run/secrets/mysql_user
+    #   MYSQL_PASSWORD: /run/secrets/mysql_password
+    #   MYSQL_DATABASE: /run/secrets/mysql_database
+    #   MYSQL_HOST: /run/secrets/mysql_host
+    # secrets:
+    #   - mysql_root_password
+    #   - mysql_user
+    #   - mysql_password
+    #   - mysql_database
+    #   - mysql_host
     volumes:
       - db_data:/var/lib/mysql
       - ./db_shared:/docker-entrypoint-initdb.d/
@@ -124,25 +163,22 @@ services:
     ports:
       - "9200:9200"
 
-  # phpmyadmin:
-  #   image: phpmyadmin/phpmyadmin:4.7
-  #   container_name: phpmyadmin
-  #   env_file: .env
-  #   environment:
-  #     PMA_HOST: ${MYSQL_HOST}
-  #     PMA_USER: ${MYSQL_USER}
-  #     PMA_PASSWORD: ${MYSQL_PASSWORD}
-  #     PMA_ARBITRARY: 0
-  #     PMA_PORT: 3306
-  #   networks:
-  #     - db_network
-  #   volumes:
-  #     - /sessions
-  #   depends_on:
-  #     - db
-  #   restart: always
-  #   ports:
-  #     - "5001:80"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:4.7
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: db
+      PMA_ARBITRARY: 0
+      PMA_PORT: 3306
+    networks:
+      - db_network
+    volumes:
+      - /sessions
+    depends_on:
+      - db
+    restart: always
+    ports:
+      - "5001:80"
 
   # ssh:
   #   image: rastasheep/ubuntu-sshd:18.04
