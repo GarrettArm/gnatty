@@ -1,4 +1,4 @@
-FROM drupal:8.7.3-fpm
+FROM drupal:8.6.15-fpm
 
 RUN rm -R /var/www/html
 
@@ -22,3 +22,6 @@ RUN composer update \
     && chown -R www-data:www-data /drupal_app
 COPY ./config/drupal/settings.php /tmp/drupal_local_settings.php
 RUN cat /tmp/drupal_local_settings.php >> /drupal_app/web/sites/default/settings.php
+
+# RUN pecl install xdebug \
+#     && docker-php-ext-enable xdebug

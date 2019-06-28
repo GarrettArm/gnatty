@@ -3,21 +3,16 @@ version: '3.7'
 volumes:
   db_data:
   drupal_data:
-  logs_data:
-
 
 networks:
   db_network:
     driver: bridge
   frontend_network:
     driver: bridge
-  elk_network:
-    driver: bridge
-
 
 services:
   nginx:
-    image: nginx:1.17.0
+    image: nginx:1.15.10
     container_name: nginx
     environment:
       NGINX_SERVER_ROOT: /drupal_app/web
@@ -26,16 +21,25 @@ services:
       - drupal_data:/drupal_app
     networks:
       - frontend_network
-      - elk_network
     ports:
       - "5000:80"
-    logging:
-      driver: gelf
-      options:
-        gelf-address: "udp://localhost:12201"
     depends_on:
       - webapp
     restart: always
+
+  # httpd:
+  #   image: httpd:2.4.39
+  #   container_name: httpd
+  #   volumes:
+  #     - ./config/httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf
+  #     - drupal_data:/usr/local/apache2/htdocs/
+  #   networks:
+  #     - frontend_network
+  #   ports:
+  #     - "5005:80"
+  #   depends_on:
+  #     - webapp
+  #   restart: always
 
   webapp:
     build:
@@ -45,84 +49,28 @@ services:
     env_file: .env
     volumes:
       - ./config/drupal/php.ini-development:/usr/local/etc/php/php.ini
+      # - ./config/drupal/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
       - ./drupal_sync:/drupal_sync
       - ./gnatty_theme:/drupal_app/web/themes/contrib
       - drupal_data:/drupal_app
     networks:
       - db_network
       - frontend_network
-      - elk_network
-    logging:
-      driver: gelf
-      options:
-        gelf-address: "udp://localhost:12201"
     depends_on:
       - db
-      - logstash
-      - elasticsearch
-      - kibana
     restart: always
 
   db:
-    image: mysql:8.0.16
+    image: mysql:8.0.15
     container_name: db
     env_file: .env
+    networks:
+      - db_network
     volumes:
       - db_data:/var/lib/mysql
       - ./db_shared:/docker-entrypoint-initdb.d/
-    networks:
-      - db_network
-      - elk_network
-    logging:
-      driver: gelf
-      options:
-        gelf-address: "udp://localhost:12201"
     restart: always
     command: --default-authentication-plugin=mysql_native_password
-
-  logstash:
-    image: logstash:7.1.1
-    container_name: logstash
-    networks:
-      - elk_network
-    environment:
-      LS_JAVA_OPTS: "-Xmx1g -Xms1g"
-    volumes:
-      - ./config/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
-    ports:
-      - "12201:12201/udp"
-    depends_on:
-      - elasticsearch
-
-  kibana:
-    image: docker.elastic.co/kibana/kibana:7.1.1
-    container_name: kibana
-    depends_on:
-      - logstash
-    ports:
-      - 5601:5601
-    depends_on:
-      - elasticsearch
-    networks:
-      - elk_network
-
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.1.1
-    container_name: elasticsearch
-    environment:
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
-      - discovery.type=single-node
-    volumes:
-      - logs_data:/usr/share/elasticsearch/data
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    networks:
-      - elk_network
-    ports:
-      - "9200:9200"
 
   # phpmyadmin:
   #   image: phpmyadmin/phpmyadmin:4.7
@@ -157,16 +105,3 @@ services:
   #   ports:
   #     - "5022:22"
 
-  # httpd:
-  #   image: httpd:2.4.39
-  #   container_name: httpd
-  #   volumes:
-  #     - ./config/httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf
-  #     - drupal_data:/usr/local/apache2/htdocs/
-  #   networks:
-  #     - frontend_network
-  #   ports:
-  #     - "5005:80"
-  #   depends_on:
-  #     - webapp
-  #   restart: always
