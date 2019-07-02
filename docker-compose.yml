@@ -1,8 +1,10 @@
 version: '3.7'
 
+
 volumes:
   db_data:
   drupal_data:
+
 
 networks:
   db_network:
@@ -10,9 +12,10 @@ networks:
   frontend_network:
     driver: bridge
 
+
 services:
   nginx:
-    image: nginx:1.15.10
+    image: nginx:1.16.0
     container_name: nginx
     environment:
       NGINX_SERVER_ROOT: /drupal_app/web
@@ -27,20 +30,6 @@ services:
       - webapp
     restart: always
 
-  # httpd:
-  #   image: httpd:2.4.39
-  #   container_name: httpd
-  #   volumes:
-  #     - ./config/httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf
-  #     - drupal_data:/usr/local/apache2/htdocs/
-  #   networks:
-  #     - frontend_network
-  #   ports:
-  #     - "5005:80"
-  #   depends_on:
-  #     - webapp
-  #   restart: always
-
   webapp:
     build:
       context: .
@@ -49,7 +38,6 @@ services:
     env_file: .env
     volumes:
       - ./config/drupal/php.ini-development:/usr/local/etc/php/php.ini
-      # - ./config/drupal/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
       - ./drupal_sync:/drupal_sync
       - ./gnatty_theme:/drupal_app/web/themes/contrib
       - drupal_data:/drupal_app
@@ -61,7 +49,7 @@ services:
     restart: always
 
   db:
-    image: mysql:8.0.15
+    image: mysql:8.0.16
     container_name: db
     env_file: .env
     networks:
@@ -71,6 +59,7 @@ services:
       - ./db_shared:/docker-entrypoint-initdb.d/
     restart: always
     command: --default-authentication-plugin=mysql_native_password
+
 
   # phpmyadmin:
   #   image: phpmyadmin/phpmyadmin:4.7
@@ -91,17 +80,16 @@ services:
   #   restart: always
   #   ports:
   #     - "5001:80"
-
-  # ssh:
-  #   image: rastasheep/ubuntu-sshd:18.04
-  #   env_file: .env
-  #   container_name: ssh
+  # httpd:
+  #   image: httpd:2.4.39
+  #   container_name: httpd
   #   volumes:
-  #     - drupal_data:/drupal_app
-  #     - ./config/ssh/ssh_entrypoint.sh:/tmp/ssh_entrypoint.sh
-  #   entrypoint: /tmp/ssh_entrypoint.sh
+  #     - ./config/httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf
+  #     - drupal_data:/usr/local/apache2/htdocs/
+  #   networks:
+  #     - frontend_network
+  #   ports:
+  #     - "5005:80"
   #   depends_on:
   #     - webapp
-  #   ports:
-  #     - "5022:22"
-
+  #   restart: always
