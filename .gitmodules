@@ -1,3 +1,6 @@
 [submodule "drupal_sync"]
 	path = drupal_sync
 	url = https://github.com/lsulibraries/drupal_sync
+[submodule "drupal8_theme"]
+	path = drupal8_theme
+	url = https://github.com/lsulibraries/drupal8_theme
