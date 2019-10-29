@@ -1,6 +1,3 @@
 [submodule "drupal_sync"]
 	path = drupal_sync
 	url = https://github.com/lsulibraries/drupal_sync
-[submodule "gnatty_theme"]
-	path = gnatty_theme
-	url = https://github.com/lsulibraries/gnatty_theme
