@@ -4,6 +4,8 @@ A Drupal8 dev box for lib.lsu.edu
 
 ## Build, if your computer's got the dependencies
 
+  1. if on linux, `usermod -a www-data` to add yourself to the www-data group
+
   1. `git clone --recurse-submodules https://github.com/lsulibraries/gnatty`
 
   1. `cd gnatty`
@@ -126,7 +128,7 @@ ctrl-C
 
  - Importing config settings from drupal_sync/:
 
-    `docker-composer exec webapp drush config-import -y`
+    `docker-compose exec webapp drush config-import -y`
 
 #### - sharing theme changes:
 
