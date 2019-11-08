@@ -39,7 +39,7 @@ services:
     volumes:
       - ./config/drupal/php.ini-development:/usr/local/etc/php/php.ini
       - ./drupal_sync:/drupal_sync
-      - ./gnatty_theme:/drupal_app/web/themes/contrib
+      - ./drupal8_theme:/drupal_app/web/themes/contrib
       - drupal_data:/drupal_app
     networks:
       - db_network
