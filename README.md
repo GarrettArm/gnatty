@@ -12,7 +12,9 @@ A Drupal8 dev box for lib.lsu.edu
 
   1. copy R/TechInit/Drupal8DbAuthoritative/drupal8_sandbox_db.sql to ./db_shared/
 
-  1. `docker-compose up --build -d` *The next steps will fail if the database is not yet initialized.  Wait until `docker-compose logs` shows a line "MySQL init process done. Ready for start up."*
+  1. `docker-compose up --build -d` 
+
+  1. *The next steps will fail if the database is not yet initialized.  Keep typing `docker-compose logs` until it shows a line "MySQL init process done. Ready for start up."*
 
   1. `docker-compose exec webapp chown -R www-data:www-data /drupal_sync` (fixes a permissions error)
 
