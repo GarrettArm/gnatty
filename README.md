@@ -8,13 +8,11 @@ A Drupal8 dev box for lib.lsu.edu
 
   1. `cd gnatty`
 
-  1.  change the passwords in the file ".env"
+  1. change the passwords in the file ".env"
 
   1. copy R/TechInit/Drupal8DbAuthoritative/drupal8_sandbox_db.sql to ./db_shared/
 
-  1. `docker-compose up --build -d`
-
-*after db is done building:*
+  1. `docker-compose up --build -d` *wait until db finishes ingesting sandbox_db.sql (5 minutes max)*
 
   1. `docker-compose exec webapp chown -R www-data:www-data /drupal_sync` (fixes a permissions error)
 
