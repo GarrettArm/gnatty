@@ -3,7 +3,7 @@ if (getenv('DRUPAL_SALT') && empty($settings['hash_salt'])) {
     $settings['hash_salt'] = getenv('DRUPAL_SALT');
 };
 
-$config_directories['sync'] = '/drupal_sync';
+$settings['config_sync_directory'] = '/drupal_sync';
 
 $databases['default']['default'] = array (
   'database' => getenv('MYSQL_DATABASE'),
